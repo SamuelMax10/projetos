@@ -6,6 +6,7 @@ import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
+import javax.swing.plaf.SliderUI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,7 +89,36 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public List<Seller> findAll() {
-        return List.of();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = con.prepareStatement(
+                    "select seller.*,department.Name as DepName "
+                            + "from seller inner join department "
+                            + "on seller.DepartmentId = department.Id "
+                            + "order by Name");
+
+            rs = ps.executeQuery();
+
+            List<Seller> list = new ArrayList<>();
+            Map<Integer, Department> map = new HashMap<>();
+
+            while (rs.next()) {
+                Department dep = map.get(rs.getInt("DepartmentId"));
+
+                if (dep == null) {
+                    dep = instantiateDepartment(rs);
+                    map.put(rs.getInt("DepartmentId"), dep);
+
+                }
+                Seller seller = instantiateSeller(rs, dep);
+                list.add(seller);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbExeption(e.getMessage());
+        }
     }
 
     @Override
@@ -117,16 +147,15 @@ public class SellerDaoJDBC implements SellerDao {
                     map.put(rs.getInt("DepartmentId"), dep);
                 }
 
-                Seller seller = instantiateSeller(rs,dep);
+                Seller seller = instantiateSeller(rs, dep);
                 list.add(seller);
             }
             return list;
         } catch (SQLException e) {
             throw new DbExeption(e.getMessage());
-        }finally {
+        } finally {
             DB.fechaStatement(ps);
             DB.fechaResultset(rs);
         }
-
     }
 }
