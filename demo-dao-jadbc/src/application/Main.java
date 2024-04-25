@@ -27,8 +27,13 @@ public class Main {
 
         System.out.println("\n=== TESTE 03: Seller findAll ===");
         list = sellerDao.findAll();
-        for (Seller obj : list){
+        for (Seller obj : list) {
             System.out.println(obj);
         }
+
+        System.out.println("\n=== TESTE 04: Seller findAll ===");
+        Seller seller1 = new Seller(null, "Greg", "greg@idg-eng.com", new Date(), 4000.00, dep);
+        sellerDao.Insert(seller1);
+        System.out.println("Inserido novo id: " + seller1.getId());
     }
 }
