@@ -62,14 +62,14 @@ public class SellerDaoJDBC implements SellerDao {
         try {
             ps = con.prepareStatement(
                     "update seller "
-                    + "set Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
-                    + "where Id = ?");
+                            + "set Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+                            + "where Id = ?");
             ps.setString(1, seller.getName());
             ps.setString(2, seller.getEmail());
             ps.setDate(3, new Date(seller.getBirthDate().getTime()));
             ps.setDouble(4, seller.getBaseSalary());
             ps.setInt(5, seller.getDepartment().getId());
-            ps.setInt(6,seller.getId());
+            ps.setInt(6, seller.getId());
 
             ps.executeUpdate();
 
@@ -83,7 +83,19 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "delete from seller where Id = ?");
+            ps.setInt(1, id);
 
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DbExeption(e.getMessage());
+        } finally {
+            DB.fechaStatement(ps);
+        }
     }
 
     @Override
