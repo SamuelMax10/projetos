@@ -49,21 +49,33 @@ public class DepartmentDaoJDBC implements DepartmentDao {
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(
-                    "update department set Name = ? "+
+                    "update department set Name = ? " +
                             "where Id = ?");
             ps.setString(1, obj.getName());
-            ps.setInt(2,obj.getId());
+            ps.setInt(2, obj.getId());
 
             ps.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DbExeption(e.getMessage());
-        }finally {
+        } finally {
             DB.fechaStatement(ps);
         }
     }
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(
+                    "delete from department where id = ?");
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbExeption(e.getMessage());
+        } finally {
+            DB.fechaStatement(ps);
+        }
 
     }
 
