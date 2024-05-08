@@ -26,5 +26,11 @@ public class Program2 {
         department = new Department(null,"Engineering");
         departmentDao.insert(department);
         System.out.println("Inserido novo id: "+department.getId());
+
+        System.out.println("\nTESTE 04 - update");
+        department = departmentDao.findById(3);
+        department.setName("Science");
+        departmentDao.update(department);
+        System.out.println("Atualização completa");
     }
 }
