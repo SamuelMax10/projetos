@@ -2,7 +2,10 @@ package application;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
+import model.entities.Department;
+import model.entities.Seller;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Program {
@@ -28,7 +31,7 @@ public class Program {
 //        for (Seller obj : list) {
 //            System.out.println(obj);
 //        }
-//
+
 //        System.out.println("\n=== TESTE 04: Seller insert ===");
 //        Seller seller1 = new Seller(null, "Greg", "greg@idg-eng.com", new Date(), 4000.00, dep);
 //        sellerDao.Insert(seller1);
@@ -39,13 +42,13 @@ public class Program {
 //        seller.setName("Maria Alice");
 //        sellerDao.update(seller);
 //        System.out.println("Atualização completa!");
-
-        System.out.println("\n=== TESTE 06: Seller delete ===");
-        System.out.print("Entre com um id para deletar: ");
-        int id = sc.nextInt();
-        sellerDao.deleteById(id);
-        System.out.println("Foi excluido o id: " + id);
-
-        sc.close();
+//
+//        System.out.println("\n=== TESTE 06: Seller delete ===");
+//        System.out.print("Entre com um id para deletar: ");
+//        int id = sc.nextInt();
+//        sellerDao.deleteById(id);
+//        System.out.println("Foi excluido o id: " + id);
+//
+//        sc.close();
     }
 }

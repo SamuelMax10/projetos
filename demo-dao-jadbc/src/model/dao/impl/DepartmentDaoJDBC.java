@@ -5,10 +5,8 @@ import db.DbExeption;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
@@ -21,7 +19,29 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void insert(Department obj) {
-
+//        PreparedStatement ps = null;
+//        try {
+//            ps = con.prepareStatement(
+//                    "insert into department " +
+//                            "(Name) values (?)",
+//                    Statement.RETURN_GENERATED_KEYS);
+//
+//            ps.setString(1, obj.getName());
+//            int linhasafetadas = ps.executeUpdate();
+//            if (linhasafetadas > 0) {
+//                ResultSet rs = ps.getGeneratedKeys();
+//                if (rs.next()) {
+//                    int id = rs.getInt(1);
+//                    obj.setId(id);
+//                }
+//            } else {
+//                throw new DbExeption("Erro inesperado, nehuma linha afetada");
+//            }
+//        } catch (SQLException e) {
+//            throw new DbExeption(e.getMessage());
+//        } finally {
+//            DB.fechaStatement(ps);
+//        }
     }
 
     @Override
@@ -43,7 +63,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
                     "select*from department where id=?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 Department dep = new Department();
                 dep.setId(rs.getInt("Id"));
                 dep.setName(rs.getString("Name"));
@@ -51,9 +71,9 @@ public class DepartmentDaoJDBC implements DepartmentDao {
                 return dep;
             }
             return null;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DbExeption(e.getMessage());
-        }finally {
+        } finally {
             DB.fechaStatement(ps);
             DB.fechaResultset(rs);
         }
@@ -63,6 +83,29 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public List<Department> findAll() {
-        return List.of();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = con.prepareStatement(
+                    "select * from department order by Name");
+            rs = ps.executeQuery();
+
+            List<Department> list = new ArrayList<>();
+
+            while (rs.next()) {
+                Department dep = new Department();
+                dep.setId(rs.getInt("Id"));
+                dep.setName(rs.getString("Name"));
+                list.add(dep);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            throw new DbExeption(e.getMessage());
+        } finally {
+            DB.fechaStatement(ps);
+            DB.fechaResultset(rs);
+        }
+
     }
 }
