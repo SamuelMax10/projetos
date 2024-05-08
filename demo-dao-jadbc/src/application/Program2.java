@@ -22,5 +22,9 @@ public class Program2 {
             System.out.println(dep);
         }
 
+        System.out.println("\nTESTE 03 - insert");
+        department = new Department(null,"Engineering");
+        departmentDao.insert(department);
+        System.out.println("Inserido novo id: "+department.getId());
     }
 }
