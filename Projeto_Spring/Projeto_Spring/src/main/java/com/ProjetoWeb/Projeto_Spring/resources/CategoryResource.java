@@ -1,7 +1,7 @@
 package com.ProjetoWeb.Projeto_Spring.resources;
 
-import com.ProjetoWeb.Projeto_Spring.entitites.UserEntities;
-import com.ProjetoWeb.Projeto_Spring.service.UserService;
+import com.ProjetoWeb.Projeto_Spring.entitites.CategoryEntities;
+import com.ProjetoWeb.Projeto_Spring.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/categories")
+public class CategoryResource {
 
     @Autowired
-    private UserService service;
+    private CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List<UserEntities>> findAll() {
-        List<UserEntities> list = service.findAll();
+    public ResponseEntity<List<CategoryEntities>> findAll() {
+        List<CategoryEntities> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserEntities> findById(@PathVariable Long id) {
-        UserEntities obj = service.findById(id);
+    public ResponseEntity<CategoryEntities> findById(@PathVariable Long id) {
+        CategoryEntities obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }

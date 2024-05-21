@@ -1,8 +1,10 @@
 package com.ProjetoWeb.Projeto_Spring.config;
 
+import com.ProjetoWeb.Projeto_Spring.entitites.CategoryEntities;
 import com.ProjetoWeb.Projeto_Spring.entitites.OrderEntities;
 import com.ProjetoWeb.Projeto_Spring.entitites.UserEntities;
 import com.ProjetoWeb.Projeto_Spring.entitites.enums.OrderStatus;
+import com.ProjetoWeb.Projeto_Spring.repository.CategoryRepository;
 import com.ProjetoWeb.Projeto_Spring.repository.OrderRepository;
 import com.ProjetoWeb.Projeto_Spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class TestConfig implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -31,7 +35,12 @@ public class TestConfig implements CommandLineRunner {
         var o1 = new OrderEntities(null, Instant.parse("2024-05-20T20:10:00Z"), OrderStatus.WAITING_PAYMENT, u1);
         var o3 = new OrderEntities(null, Instant.parse("2024-05-20T21:30:00Z"), OrderStatus.WAITING_PAYMENT, u);
 
+        var c = new CategoryEntities(null,"Eletronics");
+        var c1 = new CategoryEntities(null,"Books");
+        var c2 = new CategoryEntities(null,"Computers");
+
         userRepository.saveAll(Arrays.asList(u, u1));
         orderRepository.saveAll(Arrays.asList(o, o1, o3));
+        categoryRepository.saveAll((Arrays.asList(c,c1,c2)));
     }
 }
