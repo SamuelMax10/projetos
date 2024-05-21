@@ -1,5 +1,6 @@
 package com.ProjetoWeb.Projeto_Spring.entitites;
 
+import com.ProjetoWeb.Projeto_Spring.entitites.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -16,21 +17,24 @@ public class OrderEntities implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm'Z'",timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm'Z'", timezone = "GMT")
     private Instant moment;
+
+    private Integer orderStatus;
 
     //@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private UserEntities client;
 
-    public OrderEntities(){
+    public OrderEntities() {
 
     }
 
-    public OrderEntities(Long id, Instant moment, UserEntities client) {
+    public OrderEntities(Long id, Instant moment, OrderStatus orderStatus, UserEntities client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus);
         this.client = client;
     }
 
@@ -56,6 +60,16 @@ public class OrderEntities implements Serializable {
 
     public void setClient(UserEntities client) {
         this.client = client;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
     }
 
     @Override
