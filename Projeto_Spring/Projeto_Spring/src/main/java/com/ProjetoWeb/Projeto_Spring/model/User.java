@@ -1,7 +1,6 @@
-package com.ProjetoWeb.Projeto_Spring.entitites;
+package com.ProjetoWeb.Projeto_Spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_user")
-public class UserEntities implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +23,13 @@ public class UserEntities implements Serializable {
     //@JsonManagedReference
     @JsonIgnore
     @OneToMany(mappedBy = "client")
-    private List<OrderEntities> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
-    public UserEntities() {
+    public User() {
 
     }
 
-    public UserEntities(Integer id, String name, String email, String phone, String password) {
+    public User(Integer id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -78,7 +77,7 @@ public class UserEntities implements Serializable {
         this.password = password;
     }
 
-    public List<OrderEntities> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
@@ -86,7 +85,7 @@ public class UserEntities implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntities user = (UserEntities) o;
+        User user = (User) o;
         return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && Objects.equals(password, user.password);
     }
 

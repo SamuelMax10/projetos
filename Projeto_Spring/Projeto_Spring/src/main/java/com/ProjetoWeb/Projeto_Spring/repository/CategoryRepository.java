@@ -1,7 +1,7 @@
 package com.ProjetoWeb.Projeto_Spring.repository;
 
-import com.ProjetoWeb.Projeto_Spring.entitites.CategoryEntities;
+import com.ProjetoWeb.Projeto_Spring.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CategoryRepository extends JpaRepository<CategoryEntities, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }

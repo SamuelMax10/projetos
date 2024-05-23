@@ -1,8 +1,8 @@
 package com.ProjetoWeb.Projeto_Spring.repository;
 
-import com.ProjetoWeb.Projeto_Spring.entitites.UserEntities;
+import com.ProjetoWeb.Projeto_Spring.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UserEntities, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

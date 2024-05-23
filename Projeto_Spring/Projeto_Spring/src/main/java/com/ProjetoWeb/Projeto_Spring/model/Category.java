@@ -1,24 +1,28 @@
-package com.ProjetoWeb.Projeto_Spring.entitites;
+package com.ProjetoWeb.Projeto_Spring.model;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
-public class CategoryEntities implements Serializable {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
-    public CategoryEntities(){
+    public Category() {
 
     }
 
-    public CategoryEntities(Long id, String name) {
+    public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -39,11 +43,15 @@ public class CategoryEntities implements Serializable {
         this.name = name;
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CategoryEntities that = (CategoryEntities) o;
+        Category that = (Category) o;
         return Objects.equals(id, that.id);
     }
 
@@ -51,4 +59,6 @@ public class CategoryEntities implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }

@@ -1,6 +1,6 @@
 package com.ProjetoWeb.Projeto_Spring.resources;
 
-import com.ProjetoWeb.Projeto_Spring.entitites.OrderEntities;
+import com.ProjetoWeb.Projeto_Spring.model.Order;
 import com.ProjetoWeb.Projeto_Spring.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +16,14 @@ public class OrderResources {
     private OrderService service;
 
     @GetMapping
-    public ResponseEntity<List<OrderEntities>> findAll() {
-        List<OrderEntities> list = service.findAll();
+    public ResponseEntity<List<Order>> findAll() {
+        List<Order> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<OrderEntities> findById(@PathVariable Long id){
-        OrderEntities obj = service.findById(id);
+    public ResponseEntity<Order> findById(@PathVariable Long id){
+        Order obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }

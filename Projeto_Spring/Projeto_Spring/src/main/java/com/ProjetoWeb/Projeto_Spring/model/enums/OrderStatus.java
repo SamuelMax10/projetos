@@ -1,6 +1,4 @@
-package com.ProjetoWeb.Projeto_Spring.entitites.enums;
-
-import org.aspectj.weaver.ast.Or;
+package com.ProjetoWeb.Projeto_Spring.model.enums;
 
 public enum OrderStatus {
     WAITING_PAYMENT(1),

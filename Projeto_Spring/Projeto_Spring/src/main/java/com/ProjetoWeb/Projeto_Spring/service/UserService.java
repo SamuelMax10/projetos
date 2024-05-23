@@ -1,6 +1,6 @@
 package com.ProjetoWeb.Projeto_Spring.service;
 
-import com.ProjetoWeb.Projeto_Spring.entitites.UserEntities;
+import com.ProjetoWeb.Projeto_Spring.model.User;
 import com.ProjetoWeb.Projeto_Spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<UserEntities> findAll(){
+    public List<User> findAll(){
         return repository.findAll();
     }
 
-    public UserEntities findById(Long id){
-        Optional<UserEntities> obj = repository.findById(id);
+    public User findById(Long id){
+        Optional<User> obj = repository.findById(id);
         return obj.get();
     }
 }

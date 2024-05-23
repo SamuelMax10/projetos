@@ -1,7 +1,6 @@
-package com.ProjetoWeb.Projeto_Spring.entitites;
+package com.ProjetoWeb.Projeto_Spring.model;
 
-import com.ProjetoWeb.Projeto_Spring.entitites.enums.OrderStatus;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.ProjetoWeb.Projeto_Spring.model.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -11,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_order")
-public class OrderEntities implements Serializable {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +24,13 @@ public class OrderEntities implements Serializable {
     //@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private UserEntities client;
+    private User client;
 
-    public OrderEntities() {
+    public Order() {
 
     }
 
-    public OrderEntities(Long id, Instant moment, OrderStatus orderStatus, UserEntities client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
@@ -54,11 +53,11 @@ public class OrderEntities implements Serializable {
         this.moment = moment;
     }
 
-    public UserEntities getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(UserEntities client) {
+    public void setClient(User client) {
         this.client = client;
     }
 
@@ -76,7 +75,7 @@ public class OrderEntities implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderEntities that = (OrderEntities) o;
+        Order that = (Order) o;
         return Objects.equals(id, that.id);
     }
 
