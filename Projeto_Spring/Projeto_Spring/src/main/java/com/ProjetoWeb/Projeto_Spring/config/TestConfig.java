@@ -1,14 +1,8 @@
 package com.ProjetoWeb.Projeto_Spring.config;
 
-import com.ProjetoWeb.Projeto_Spring.model.Category;
-import com.ProjetoWeb.Projeto_Spring.model.Order;
-import com.ProjetoWeb.Projeto_Spring.model.Product;
-import com.ProjetoWeb.Projeto_Spring.model.User;
+import com.ProjetoWeb.Projeto_Spring.model.*;
 import com.ProjetoWeb.Projeto_Spring.model.enums.OrderStatus;
-import com.ProjetoWeb.Projeto_Spring.repository.CategoryRepository;
-import com.ProjetoWeb.Projeto_Spring.repository.OrderRepository;
-import com.ProjetoWeb.Projeto_Spring.repository.ProductRepository;
-import com.ProjetoWeb.Projeto_Spring.repository.UserRepository;
+import com.ProjetoWeb.Projeto_Spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +23,9 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -55,14 +52,21 @@ public class TestConfig implements CommandLineRunner {
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
-        var u = new User(null, "Samuel Max", "samuel@gmail.com", "4002-8022", "12345");
-        var u1 = new User(null, "Sabrina Izabela", "sabrina@gmail.com", "7070-7080", "54321");
+        var u1 = new User(null, "Samuel Max", "samuel@gmail.com", "4002-8022", "12345");
+        var u2 = new User(null, "Sabrina Izabela", "sabrina@gmail.com", "7070-7080", "54321");
 
-        var o = new Order(null, Instant.parse("2024-05-20T20:00:00Z"), OrderStatus.PAID, u);
-        var o1 = new Order(null, Instant.parse("2024-05-20T20:10:00Z"), OrderStatus.WAITING_PAYMENT, u1);
-        var o3 = new Order(null, Instant.parse("2024-05-20T21:30:00Z"), OrderStatus.WAITING_PAYMENT, u);
+        var o1= new Order(null, Instant.parse("2024-05-20T20:00:00Z"), OrderStatus.PAID, u1);
+        var o2 = new Order(null, Instant.parse("2024-05-20T20:10:00Z"), OrderStatus.WAITING_PAYMENT, u1);
+        var o3 = new Order(null, Instant.parse("2024-05-20T21:30:00Z"), OrderStatus.WAITING_PAYMENT, u1);
 
-        userRepository.saveAll(Arrays.asList(u, u1));
-        orderRepository.saveAll(Arrays.asList(o, o1, o3));
+        userRepository.saveAll(Arrays.asList(u1, u2));
+        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        var oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        var oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        var oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        var oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
     }
 }
