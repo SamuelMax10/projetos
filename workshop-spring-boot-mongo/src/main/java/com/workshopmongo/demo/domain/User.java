@@ -1,14 +1,19 @@
 package com.workshopmongo.demo.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Objects;
 
+@Document
 public class User {
 
+    @Id
     private String id;
     private String name;
     private String email;
 
-    public User (){
+    public User() {
 
     }
 
