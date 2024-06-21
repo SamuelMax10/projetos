@@ -6,6 +6,7 @@ import com.workshopmongo.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,11 @@ public class UserResource {
         List<User> list = service.findAll();
         List<UserDto> dtoList = list.stream().map(UserDto::new).collect(Collectors.toList()); /*Convertendo uma lista de User para uma lista UserDto.*/
         return ResponseEntity.ok().body(dtoList);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDto> findById(@PathVariable String id){
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(new UserDto(user));
     }
 }
