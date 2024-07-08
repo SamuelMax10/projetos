@@ -48,7 +48,7 @@ public class Instantiation implements CommandLineRunner {
         var c3 = new CommentDto("Use protetor solar kkkkk", sdf.parse("22/07/2024"),new AuthorDto(sabrina));
 
         post1.getComments().addAll(Arrays.asList(c1,c2));
-        
+
         post2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1,post2));
