@@ -43,9 +43,9 @@ public class Instantiation implements CommandLineRunner {
         var post1 = new Post(null, sdf.parse("21/03/2024"), "Partiu Viagem", "Vou viajar para o Cabo Frio!!!", new AuthorDto( samuel));
         var post2 = new Post(null, sdf.parse("25/03/2024"), "Bom dia", "Me arrumando para ir a praia :)", new AuthorDto(samuel));
 
-        var c1 = new CommentDto("Boa viagem maninho", sdf.parse("21/07/2024"),new AuthorDto(sabrina));
-        var c2 = new CommentDto("Boa viagem meu amor", sdf.parse("22/07/2024"),new AuthorDto(leidynara));
-        var c3 = new CommentDto("Use protetor solar kkkkk", sdf.parse("22/07/2024"),new AuthorDto(sabrina));
+        var c1 = new CommentDto("Boa viagem maninho", sdf.parse("21/03/2024"),new AuthorDto(sabrina));
+        var c2 = new CommentDto("Boa viagem meu amor", sdf.parse("22/03/2024"),new AuthorDto(leidynara));
+        var c3 = new CommentDto("Use protetor solar kkkkk", sdf.parse("22/03/2024"),new AuthorDto(sabrina));
 
         post1.getComments().addAll(Arrays.asList(c1,c2));
 
